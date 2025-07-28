@@ -299,9 +299,7 @@
     addBtn.addEventListener('click', () => {
       addTask();
     });
-  </script>
-  // 每分鐘檢查一次是否該刷新（避免重複刷新）
-setInterval(() => {
+    setInterval(() => {
   const now = new Date();
   const lastRefresh = localStorage.getItem('lastRefresh') || '';
   const today = now.toISOString().split('T')[0];
@@ -312,6 +310,8 @@ setInterval(() => {
     location.reload(); // 重新整理頁面，觸發 checkNewDayReset()
   }
 }, 60 * 1000); // 每分鐘檢查一次
+  </script>
+  // 每分鐘檢查一次是否該刷新（避免重複刷新）
 </body>
 </html>
 
