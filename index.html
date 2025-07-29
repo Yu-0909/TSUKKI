@@ -305,7 +305,7 @@
   const today = now.toISOString().split('T')[0];
 
   // 如果現在時間超過 5:00 且今天還沒刷新過
-  if (now.getHours() === 09&& now.getMinutes() === 30&& lastRefresh !== today) {
+  if (now.getHours() === 09&& now.getMinutes() === 40&& lastRefresh !== today) {
     localStorage.setItem('lastRefresh', today);
     location.reload(); // 重新整理頁面，觸發 checkNewDayReset()
   }
