@@ -7,13 +7,10 @@
     html, body {
       margin: 0; padding: 0; height: 100%;
       background: linear-gradient(90deg,rgba(150, 206, 255, 0.603),rgba(255, 206, 255, 0.589));
-      height: 100vh;
-      margin: 0;
       color: rgb(0, 0, 0);
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
-     
     }
     .top-bar {
       display: flex;
@@ -231,7 +228,6 @@
 
     function updateStats() {
       document.getElementById('streak').textContent = data.stats.streak;
-      document.getElementById('total-done').textContent = data.stats.totalDone;
       document.getElementById('days-done').textContent = data.stats.daysDone;
       document.getElementById('days-total').textContent = data.stats.daysTotal;
       document.getElementById('money').textContent = '$' + data.stats.money;
@@ -251,7 +247,6 @@
           data.stats.streak += 1;
           data.stats.daysDone += 1;
 
-          // 給獎勵（每 3 天一次）
           if (
             data.stats.daysDone % REWARD_EVERY === 0 &&
             !data.stats.rewardedDays.includes(data.stats.daysDone)
@@ -299,19 +294,32 @@
     addBtn.addEventListener('click', () => {
       addTask();
     });
-    setInterval(() => {
-  const now = new Date();
-  const lastRefresh = localStorage.getItem('lastRefresh') || '';
-  const today = now.toISOString().split('T')[0];
 
-  // 如果現在時間超過 5:00 且今天還沒刷新過
-  if (now.getHours() === 09&& now.getMinutes() === 40&& lastRefresh !== today) {
-    localStorage.setItem('lastRefresh', today);
-    location.reload(); // 重新整理頁面，觸發 checkNewDayReset()
-  }
-}, 60 * 1000); // 每分鐘檢查一次
+    // ✅ 自動每天 5:00 檢查刷新
+    setInterval(() => {
+      const now = new Date();
+      const lastRefresh = localStorage.getItem('lastRefresh') || '';
+      const today = now.toISOString().split('T')[0];
+
+      if (now.getHours() === 5 && now.getMinutes() === 0 && lastRefresh !== today) {
+        localStorage.setItem('lastRefresh', today);
+        location.reload(); // 重新整理頁面 → 會觸發 checkNewDayReset()
+      }
+    }, 60 * 1000);
+
+    // ✅ 補強頁面載入後自動刷新邏輯（若 5:00 過後但頁面沒開）
+    (function autoForceRefreshOnLoad() {
+      const now = new Date();
+      const lastClear = new Date(data.stats.lastClear || 0);
+      const today = formatDate(now);
+
+      if (formatDate(lastClear) !== today && now.getHours() >= 5) {
+        checkNewDayReset();
+        renderTasks();
+        updateStats();
+      }
+    })();
   </script>
-  // 每分鐘檢查一次是否該刷新（避免重複刷新）
 </body>
 </html>
 
