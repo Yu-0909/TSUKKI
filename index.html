@@ -1,1 +1,101 @@
-https://github.com/Yu-0909/TSUKISHIMA/blob/main/ChenYuluoyan-Thin-Monospaced.ttf
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>資訊程式介紹網站</title>
+  <style>
+    /* 1. 字體設定 */
+    @font-face {
+      font-family: 'CWLoYen';
+      src: url('ChenYuluoyan-2.0-Thin.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* 2. 頁面基礎樣式 */
+    body {
+      margin: 0;
+      font-family: 'CWLoYen', sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #fff0f5;
+    }
+
+    /* 3. 側邊欄 */
+    .sidebar {
+      width: 220px;
+      background-color: #ffe4e1;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #c9184a;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 12px;
+      margin: 8px 0;
+      color: #333;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #ffc0cb;
+    }
+
+    /* 4. 主內容 */
+    .content {
+      flex: 1;
+      padding: 40px;
+      animation: fadeIn 0.8s ease;
+      overflow-y: auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      color: #d6336c;
+      font-size: 45px;
+    }
+
+    p {
+      font-size: 25px;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    p a {
+      text-decoration: none;
+      color: #ff3b80;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>📚 主題導覽</h2>
+    <a href="index.html">🏠 首頁</a>
+    <a href="html.html">🔤 HTML 是什麼？</a>
+    <a href="javascript.html">🧠 JavaScript 入門</a>
+    <a href="python.html">🐍 Python 是什麼？</a>
+  </div>
+
+  <div class="content">
+    <h1>歡迎來到澪的資訊介紹網站</h1>
+    <p>這是一個用來學習與介紹常見程式語言的網站，包括 C++ 等，同時也是我將 HTML 結合入的成果。</p>
+    <p>你可以點選左側的主題，閱讀每種語言的基礎介紹，讓我們一起進入程式世界吧！</p>
+    <p>特別感謝 <a href="https://scaict.org/" target="_blank">中電會</a>、以及製作 <a href="https://github.com/Chenyu-otf/chenyuluoyan_thin" target="_blank">辰宇落雁體</a> 的每一位貢獻者。</p>
+  </div>
+
+</body>
+</html>
