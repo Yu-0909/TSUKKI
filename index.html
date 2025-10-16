@@ -1,101 +1,125 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>資訊程式介紹網站</title>
+  <meta charset="UTF-8">
+  <title>💗 可愛隨機取數機 💗</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* 1. 字體設定 */
     @font-face {
       font-family: 'CWLoYen';
       src: url('ChenYuluoyan-2.0-Thin.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
-    }
-
-    /* 2. 頁面基礎樣式 */
     body {
-      margin: 0;
-      font-family: 'CWLoYen', sans-serif;
-      display: flex;
-      height: 100vh;
-      background-color: #fff0f5;
-    }
-
-    /* 3. 側邊欄 */
-    .sidebar {
-      width: 220px;
-      background-color: #ffe4e1;
-      padding: 20px;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .sidebar h2 {
+      font-family: "Noto Sans TC", sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #fff8f9);
       text-align: center;
-      font-size: 20px;
-      margin-bottom: 20px;
-      color: #c9184a;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 12px;
-      margin: 8px 0;
-      color: #333;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-
-    .sidebar a:hover {
-      background-color: #ffc0cb;
-    }
-
-    /* 4. 主內容 */
-    .content {
-      flex: 1;
-      padding: 40px;
-      animation: fadeIn 0.8s ease;
-      overflow-y: auto;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #555;
     }
 
     h1 {
-      color: #d6336c;
-      font-size: 45px;
+      color: #ff7fa8;
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #ffd6e2;
     }
 
-    p {
-      font-size: 25px;
-      line-height: 1.0;
+    .card {
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+      padding: 40px 60px;
+      display: inline-block;
+      min-width: 280px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    button {
+      background: #ffa6c9;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 25px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    button:hover {
+      background: #ff7fa8;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 22px;
       color: #444;
     }
 
-    p a {
-      text-decoration: none;
-      color: #ff3b80;
+    .loading {
+      font-size: 22px;
+      color: #ff7fa8;
+      animation: blink 0.8s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <div class="sidebar">
-    <h2>📚 主題導覽</h2>
-    <a href="index.html">🏠 首頁</a>
-    <a href="html.html">🔤 HTML 是什麼？</a>
-    <a href="javascript.html">🧠 JavaScript 入門</a>
-    <a href="python.html">🐍 Python 是什麼？</a>
+  <div class="card">
+    <h1>💗 隨機取數小機器 💗</h1>
+    <button onclick="drawNumber()">抽一抽 ✨</button>
+    <div id="result"></div>
   </div>
 
-  <div class="content">
-    <h1>歡迎來到澪的資訊介紹網站</h1>
-    <p>這是一個用來學習與介紹常見程式語言的網站，包括 C++ 等，同時也是我將 HTML 結合入的成果。</p>
-    <p>你可以點選左側的主題，閱讀每種語言的基礎介紹，讓我們一起進入程式世界吧！</p>
-    <p>特別感謝 <a href="https://scaict.org/" target="_blank">中電會</a>、以及製作 <a href="https://github.com/Chenyu-otf/chenyuluoyan_thin" target="_blank">辰宇落雁體</a> 的每一位貢獻者。</p>
-  </div>
+  <script>
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function drawNumber() {
+      const result = document.getElementById("result");
+      result.innerHTML = `<p class="loading">正在抽取中 . . . 🎀</p>`;
+
+      setTimeout(() => {
+        let K = randomInt(0, 100);
+        let F;
+
+        if (K <= 40) {
+          F = randomInt(60, 100);
+        } else if (K === 63) {
+          F = 40;
+        } else {
+          F = randomInt(100, 120);
+        }
+
+        result.innerHTML = `
+          <p>🎲 K = <b style="color:#ff7fa8;">${K}</b></p>
+          <p>💫 F = <b style="color:#ff7fa8;">${F}</b></p>
+        `;
+      }, 1000); // 模擬抽獎過程延遲1秒
+    }
+  </script>
 
 </body>
 </html>
+  
+ 
