@@ -4,14 +4,18 @@
   <meta charset="UTF-8">
   <title>💗 可愛隨機取數機 💗</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ✅ 修正版字體載入 */
     @font-face {
       font-family: 'CWLoYen';
       src: url('ChenYuluoyan-2.0-Thin.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
+    }
+
     body {
-      font-family: "Noto Sans TC", sans-serif;
+      font-family: 'CWLoYen', 'Noto Sans TC', sans-serif;
       background: linear-gradient(135deg, #ffe4ec, #fff8f9);
       text-align: center;
       height: 100vh;
@@ -66,12 +70,15 @@
 
     #result {
       margin-top: 25px;
-      font-size: 22px;
-      color: #444;
+      font-size: 50px;
+      color: #ff7fa8;
+      height: 60px;
+      line-height: 60px;
+      font-weight: bold;
     }
 
     .loading {
-      font-size: 22px;
+      font-size: 30px;
       color: #ff7fa8;
       animation: blink 0.8s infinite alternate;
     }
@@ -97,9 +104,15 @@
 
     function drawNumber() {
       const result = document.getElementById("result");
-      result.innerHTML = `<p class="loading">正在抽取中 . . . 🎀</p>`;
+      result.innerHTML = `<p class="loading">抽取中 . . . 🎀</p>`;
+
+      let interval = setInterval(() => {
+        result.textContent = randomInt(0, 120); // 抽獎動畫效果：亂數快速跳動
+      }, 80);
 
       setTimeout(() => {
+        clearInterval(interval);
+
         let K = randomInt(0, 100);
         let F;
 
@@ -111,15 +124,11 @@
           F = randomInt(100, 120);
         }
 
-        result.innerHTML = `
-          <p>🎲 K = <b style="color:#ff7fa8;">${K}</b></p>
-          <p>💫 F = <b style="color:#ff7fa8;">${F}</b></p>
-        `;
-      }, 1000); // 模擬抽獎過程延遲1秒
+        result.textContent = F; // ✅ 最後只顯示 F
+      }, 1500); // 轉動1.5秒後顯示最終結果
     }
   </script>
 
 </body>
 </html>
-  
  
